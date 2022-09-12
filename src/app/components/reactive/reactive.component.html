@@ -1,0 +1,125 @@
+<h1>Reactive Forms</h1>
+
+<form [formGroup]="form" novalidate>
+  <mat-card>
+    <mat-card-content fxLayout="column">
+      <mat-form-field class="wdt100" *ngIf="isEditing">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="id" />
+      </mat-form-field>
+
+      <!-- body -->
+      <mat-form-field>
+        <mat-label>Body</mat-label>
+
+        <input
+          id="body"
+          formControlName="body"
+          matInput
+          placeholder="Body"
+          type="text"
+        />
+
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+
+        <input
+          id="title"
+          formControlName="title"
+          matInput
+          placeholder="Title"
+          type="text"
+        />
+
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Author</mat-label>
+
+        <input
+          id="author"
+          formControlName="author"
+          matInput
+          placeholder="Author"
+          type="text"
+        />
+
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>PublicationDate</mat-label>
+
+        <input
+          id="publicationDate"
+          formControlName="publicationDate"
+          matInput
+          placeholder="PublicationDate"
+          type="date"
+        />
+
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button (click)="goBack()">Cancel</button>
+      <button class="btnConfirm"
+        mat-raised-button
+        *ngIf="!isEditing"
+        (click)="create()"
+      >
+        Create
+      </button>
+
+      <button class="btnConfirm"
+        mat-raised-button
+        *ngIf="isEditing"
+        (click)="update()"
+      >
+        Update
+      </button>
+
+      
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+
+<mat-table [dataSource]="reactives" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="body">
+    <mat-header-cell *matHeaderCellDef> Body </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.body }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="author">
+    <mat-header-cell *matHeaderCellDef> Author </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.author }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="publicationDate">
+    <mat-header-cell *matHeaderCellDef> PublicationDate </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.publicationDate }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button
+        (click)="delete(row); $event.stopPropagation()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="toUpdate(row); $event.stopPropagation()"
+  ></mat-row>
+</mat-table>

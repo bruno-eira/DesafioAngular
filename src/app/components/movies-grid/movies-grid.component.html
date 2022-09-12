@@ -1,0 +1,29 @@
+
+<form>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" class="searchdesign" placeholder="Insira no mínimo 3 caracteres" [(ngModel)]="searchStr"
+                    name="searchStr" (keyup.enter)="searchMovies()">
+                <span class="input-group-btn">
+                    <button class="btnDesign" type="button" (click)="searchMovies()">OK</button>
+                </span>
+            </div>
+        </div>
+    </div>    
+</form>
+
+   
+    <div class="row">
+        <div class="listing__items" *ngFor="let movie of movies | slice:0:18">
+            <div routerLink="/movie/{{ movie.imdbID }}">
+                <div>
+                    <img *ngIf="movie.Poster !== 'N/A'" src="{{ movie.Poster }}" />
+                    <h2>{{ movie.Title }}</h2>
+                    <h2><span>{{ movie.Year }}</span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
